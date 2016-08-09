@@ -34,12 +34,12 @@ View::View(HINSTANCE hInstance, int nCmdShow, IActionCallback* actionCallback) :
 	myInstance = this;
 
 	this->hMainWnd = CreateWindow("asd", "Полноценная оконная процедура", WS_OVERLAPPED | WS_BORDER | WS_SYSMENU, 100, 100, 540, 720, HWND(NULL), NULL, HINSTANCE(hInstance), NULL);
-	int a = GetLastError();
+
 	this->hButoon = CreateWindow("button", "Seach", WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 20, 280, 100, 40, hMainWnd, (HMENU)ID_BUTTON, NULL, NULL);//дублировать
 
 	this->hTranslateButton = CreateWindow("button", "Translate", WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 140, 280, 100, 40, hMainWnd, (HMENU)ID_TRANSLATEBUTTON, NULL, NULL);
 
-	this->hEdit = CreateWindowEx(0, "EDIT", NULL, WS_CHILD | WS_VISIBLE | ES_LEFT | ES_AUTOVSCROLL, 10, 5, 505, 20, hMainWnd, (HMENU)ID_COMBOBOX, NULL, NULL);
+	this->hEdit = CreateWindow(TEXT("combobox"), TEXT(""), CBS_DROPDOWN | CBS_HASSTRINGS | CBS_AUTOHSCROLL | WS_CHILD | WS_VISIBLE| CBS_DISABLENOSCROLL, 10, 5, 505, 100, hMainWnd, 0, NULL, NULL);
 
 	this->hList = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("listbox"), "", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 10, 30, 505, 100, hMainWnd, (HMENU)ID_EDIT, NULL, NULL);
 
@@ -99,6 +99,11 @@ HWND View::getEditWriterWindow()
 	return this->hResult;
 }
 
+HWND* View::getListWindowPointer()
+{
+	return &this->hEdit;
+}
+
 IActionCallback* View::getIactionCallback()
 {
 	return this->mActionCallback;
@@ -115,13 +120,17 @@ LRESULT View::viewWndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam)
 	{
 		this->getIactionCallback()->onCreateAction();
 	}
-	else if (Message == WM_CHAR)
-	{
-		this->getIactionCallback();
-	}
 	else if (Message == WM_COMMAND)
 	{
-		if (HIWORD(wparam) == 0)
+		if (HIWORD(wparam) == CBN_SELCHANGE)
+		{
+
+		}
+		else if (HIWORD(wparam) == CBN_EDITUPDATE)
+		{
+			this->getIactionCallback()->onCharInputAtction();
+		}
+		else if (HIWORD(wparam) == 0)
 		{
 			if (LOWORD(wparam) == ID_BUTTON)
 			{

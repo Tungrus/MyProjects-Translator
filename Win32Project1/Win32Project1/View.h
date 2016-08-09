@@ -67,6 +67,7 @@ public:
 	HWND getListWindow();
 	HWND getEditWriterWindow();
 	HWND getTranslateButton();
+	HWND* getListWindowPointer();
 	MSG PollEvent();
 	IActionCallback* getIactionCallback();
 

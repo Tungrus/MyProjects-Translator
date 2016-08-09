@@ -15,7 +15,4 @@ public:
 	SDictionary* getDictionary(std::string* newWord);
 	void addPairDict(SDictionary* first, SDictionary* second);
 	void initFromFile(std::string* filename);
-	//std::string* translate(std::string* toTranslate);
-	//std::string* autoCorrect(std::string* toCorrect);
-
 };

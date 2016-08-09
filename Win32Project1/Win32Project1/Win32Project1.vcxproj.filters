@@ -30,6 +30,12 @@
     <ClCompile Include="Controler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AutoFillerThreadControler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoFillWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="hwndSingletone.h">
@@ -38,13 +44,16 @@
     <ClInclude Include="stringWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="hWndWrapper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="View.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Controler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoFillerThreadControler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoFillWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

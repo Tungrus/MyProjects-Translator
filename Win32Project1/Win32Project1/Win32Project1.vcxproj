@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>C:\Users\dpervishko\Documents\Visual Studio 2013\Projects\my_fuzzy_strcmp\Debug;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\dpervishko\Documents\Visual Studio 2013\Projects\my_fuzzy_strcmp\my_fuzzy_strcmp;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\3rd_party\pthread\lib\x86;$(ProjectDir)..\..\my_fuzzy_strcmp\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)..\..\3rd_party\pthread\include;$(ProjectDir)..\..\my_fuzzy_strcmp\my_fuzzy_strcmp\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -53,13 +53,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\3rd_party\pthread\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>my_fuzzy_strcmp.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\dpervishko\Documents\Visual Studio 2013\Projects\my_fuzzy_strcmp\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>my_fuzzy_strcmp.lib;pthreadVSE2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\..\3rd_party\pthread\lib\x86;$(ProjectDir)..\..\my_fuzzy_strcmp\Debug\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -80,6 +81,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AutoFillerThreadControler.cpp" />
+    <ClCompile Include="AutoFillWrapper.cpp" />
     <ClCompile Include="Controler.cpp" />
     <ClCompile Include="hwndSingletone.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -87,9 +90,10 @@
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AutoFillerThreadControler.h" />
+    <ClInclude Include="AutoFillWrapper.h" />
     <ClInclude Include="Controler.h" />
     <ClInclude Include="hwndSingletone.h" />
-    <ClInclude Include="hWndWrapper.h" />
     <ClInclude Include="stringWrapper.h" />
     <ClInclude Include="View.h" />
   </ItemGroup>

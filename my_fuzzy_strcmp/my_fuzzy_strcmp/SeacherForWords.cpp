@@ -8,9 +8,9 @@
 
 Seacher::Seacher(){};
 
-returnedData* Seacher::SeachForMatchesInDictionary(std::string* string, Dictionaries* dictionaries, int maxMistake)
+ReturnedData* Seacher::SeachForMatchesInDictionary(std::string* string, Dictionaries* dictionaries, int maxMistake)
 {
 	I_Word_Correcter* correcter = new Lewinshtain_Word_Correcter();
-	return new returnedData(correcter->CorrectWord(string, dictionaries->getDictionary(string), maxMistake));
+	return new ReturnedData(correcter->CorrectWord(string, dictionaries->getDictionary(string), maxMistake));
 
 }

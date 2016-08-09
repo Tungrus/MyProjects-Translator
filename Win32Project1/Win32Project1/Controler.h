@@ -2,14 +2,15 @@
 
 #include <dictionaries.h>
 #include <returnedData.h>
+#include "AutoFillerThreadControler.h"
 
 class Controler : private IActionCallback
 {
 private:
 	View* mView;
 	Dictionaries* mDictionaries;
-	returnedData* mDataInListBox;
-
+	ReturnedData* mDataInListBox;
+	ThreadControler* mThread;
 public:
 	Controler(HINSTANCE hInstance, int nCmdShow);
 	MSG Work();

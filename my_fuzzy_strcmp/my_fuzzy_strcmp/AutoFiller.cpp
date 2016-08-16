@@ -2,6 +2,7 @@
 #include <string>
 #include "returnedData.h"
 #include "dictionaries.h"
+#include "WordsWithPriorityCollection.h"
 #include "AutoFiller.h"
 
 AutoFill::AutoFill()
@@ -29,7 +30,8 @@ bool partialMatch(std::string* reservedWord, const std::string* testingWord)
 void AutoFill::autoFilling(ReturnedData* insertingWord, Dictionaries* dictionaries, DictionaryPairLang* languge)
 {
 	std::string resevedWord = insertingWord->dropFitrsWord();
-	
+	WordsWithPriority foundWords;
+
 	Dictionary* dictionary = dictionaries->getDictionary(languge);
 	dictionary->init();
 	
@@ -38,9 +40,11 @@ void AutoFill::autoFilling(ReturnedData* insertingWord, Dictionaries* dictionari
 		const std::string* testingWord = &dictionary->getNext()->first;
 		if (partialMatch(&resevedWord, testingWord))
 		{
-			insertingWord->addWord(const_cast<std::string*>(testingWord));
+			foundWords.addWordToCollection((size_t)(testingWord->length() - resevedWord.length()), const_cast<std::string*>(testingWord));
 		}
 	}
+	foundWords.sortWords();
+	insertingWord->setWords(foundWords.getWords());
 }
 
 AutoFill::~AutoFill()

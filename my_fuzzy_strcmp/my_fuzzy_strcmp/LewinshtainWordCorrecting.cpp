@@ -3,7 +3,7 @@
 #include <vector>
 #include "stringWrapper.h"
 #include "Dictionary.h"
-
+#include "WordsWithPriorityCollection.h"
 #include "WordCorrecter.h"
 
 #define	PRISE_OF_ADD 1
@@ -113,7 +113,7 @@ int MyABS(int len)
 
 std::vector<std::string*>* LewinshtainWordCorrecter::CorrectWord(std::string* word, Dictionary* Dictionary,int possibleMistake)
 {
-	std::vector<std::string*>* matchedWords = new std::vector<std::string*>;
+	WordsWithPriority foundWords;
 	size_t currPrice;
 	std::string* checkWord = NULL;
 	Dictionary->init();
@@ -129,12 +129,13 @@ std::vector<std::string*>* LewinshtainWordCorrecter::CorrectWord(std::string* wo
 		//currPrice += MyABS(checkWord->length() - word->length());
 		if (currPrice <= possibleMistake)
 		{
-			matchedWords->push_back(new std::string(*checkWord));
+			foundWords.addWordToCollection(currPrice, checkWord);
 		}
 		Delete_Matrix(checkWord->length(), matrix);
 	}
 
-
+	foundWords.sortWords();
+	std::vector<std::string*>* matchedWords = foundWords.getWords();
 	return matchedWords;
 }
 

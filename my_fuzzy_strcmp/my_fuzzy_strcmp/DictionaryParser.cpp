@@ -7,6 +7,20 @@
 #include "Parser.h"
 #include "stdafx.h"
 
+void InsertDataInMap(std::map<std::string, std::string>* map,std::string* dataToInsert,std::string* key)
+{
+	if (map->operator[](*key) == "")
+	{
+		map->operator[](*key) = *dataToInsert;
+	}
+	else
+	{
+		map->operator[](*key) += ", " + *dataToInsert;
+	}
+}
+
+
+
 Dictionaries* DictionaryParser::pars(std::vector<std::string*>* filedata)
 {
 	std::map<std::string, std::string>* newMap1 = new std::map<std::string, std::string>;
@@ -22,8 +36,8 @@ Dictionaries* DictionaryParser::pars(std::vector<std::string*>* filedata)
 		str1 = helperWord->substr(helperWord->find('>') + 1, helperWord->length() - 1);
 		if (str.length() != 0 && str1.length() != 0)
 		{
-			newMap1->operator[](str) += str1 + ",";
-			newMap2->operator[](str1) += str + ",";
+			InsertDataInMap(newMap1, &str1, &str);
+			InsertDataInMap(newMap2, &str, &str1);
 		}
 	}
 	Dictionary* dict1 = new Dictionary(newMap1);

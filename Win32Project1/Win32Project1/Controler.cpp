@@ -83,7 +83,10 @@ Controler::~Controler()
 	this->mChoosenLang = NULL;
 	this->mDictionaries = NULL;
 	if (mDataInListBox != NULL)
+	{
+		this->mDataInListBox->clearVector();
 		delete this->mDataInListBox;
+	}
 	if (mThread != NULL)
 		delete this->mThread;
 }

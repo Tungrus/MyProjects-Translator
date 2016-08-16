@@ -37,18 +37,18 @@ View::View(HINSTANCE hInstance, int nCmdShow, IActionCallback* actionCallback) :
 
 	this->hMainWnd = CreateWindow("asd", "Полноценная оконная процедура", WS_OVERLAPPED | WS_BORDER | WS_SYSMENU, 100, 100, 540, 720, HWND(NULL), NULL, HINSTANCE(hInstance), NULL);
 
-	this->hButoon = CreateWindow("button", "Seach", WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 20, 280, 100, 40, hMainWnd, (HMENU)ID_BUTTON, NULL, NULL);
+	this->hButoon = CreateWindow("button", "Seach", WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 10, 40, 90, 30, hMainWnd, (HMENU)ID_BUTTON, NULL, NULL);
 
-	this->hTranslateButton = CreateWindow("button", "Translate", WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 140, 280, 100, 40, hMainWnd, (HMENU)ID_TRANSLATEBUTTON, NULL, NULL);
+	this->hTranslateButton = CreateWindow("button", "Translate", WS_CHILD | BS_PUSHBUTTON | WS_VISIBLE, 10, 190, 90, 30, hMainWnd, (HMENU)ID_TRANSLATEBUTTON, NULL, NULL);
 
-	this->hEdit = CreateWindow(TEXT("combobox"), TEXT(""), CBS_DROPDOWN | CBS_HASSTRINGS | CBS_AUTOHSCROLL | WS_CHILD | WS_VISIBLE | CBS_DISABLENOSCROLL, 10, 5, 505, 100, hMainWnd, (HMENU)ID_INPUT, NULL, NULL);
+	this->hEdit = CreateWindow(TEXT("combobox"), TEXT(""), CBS_DROPDOWN | CBS_HASSTRINGS | CBS_AUTOHSCROLL | WS_CHILD | WS_VISIBLE | CBS_DISABLENOSCROLL, 10, 5, 250, 100, hMainWnd, (HMENU)ID_INPUT, NULL, NULL);
 
-	this->hList = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("listbox"), "", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 10, 30, 505, 100, hMainWnd, (HMENU)ID_EDIT, NULL, NULL);
+	this->hList = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("listbox"), "", WS_CHILD | WS_VISIBLE | WS_VSCROLL | ES_AUTOVSCROLL, 10, 80, 505, 100, hMainWnd, (HMENU)ID_EDIT, NULL, NULL);
 
 	this->hResult = CreateWindowEx(0, "EDIT", NULL, WS_CHILD | WS_VISIBLE | WS_VSCROLL |
-		ES_LEFT | ES_MULTILINE | ES_AUTOVSCROLL | FALSE, 10, 150, 505, 100, hMainWnd, (HMENU)ID_RESULT, NULL, NULL);//результат
+		ES_LEFT | ES_MULTILINE | ES_AUTOVSCROLL | FALSE, 10, 230, 505, 100, hMainWnd, (HMENU)ID_RESULT, NULL, NULL);//результат
 
-	this->hLangDropDown = CreateWindow(TEXT("combobox"), TEXT(""), CBS_DROPDOWNLIST | CBS_HASSTRINGS | WS_CHILD | WS_VISIBLE, 10, 400, 505, 100, hMainWnd, (HMENU)ID_TRANSLATEDIRECTION, NULL, NULL);
+	this->hLangDropDown = CreateWindow(TEXT("combobox"), TEXT(""), CBS_DROPDOWNLIST | CBS_HASSTRINGS | WS_CHILD | WS_VISIBLE, 265, 5, 250, 100, hMainWnd, (HMENU)ID_TRANSLATEDIRECTION, NULL, NULL);
 
 	ShowWindow(this->hMainWnd, nCmdShow);
 	ShowWindow(this->hButoon, nCmdShow);

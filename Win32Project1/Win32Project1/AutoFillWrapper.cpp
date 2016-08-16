@@ -50,6 +50,8 @@ void AutoFillWrapper::autoFillWrapper(HWND lisBox, Dictionaries* dictionaries, D
 			SendDataToWindow(lisBox);
 		}
 		mData->clearVector();
+		delete mData;
+		mData = NULL;
 		mAutocompleteInUse.store(false);
 	}
 }
@@ -62,4 +64,11 @@ void AutoFillWrapper::requestStop()
 bool AutoFillWrapper::isStopRequsted() const
 {
 	return this->mIsStoped.load();
+}
+
+AutoFillWrapper::~AutoFillWrapper()
+{
+	this->mIsStoped = true;
+	this->mChoosenLang = NULL;
+	this->mData = NULL;
 }

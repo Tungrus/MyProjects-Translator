@@ -28,4 +28,5 @@ public:
 	void requestStop();
 	void autoFillWrapper(HWND ListBox, Dictionaries* dictionaries, DictionaryPairLang* lang);
 	void setData(ReturnedData* data, DictionaryPairLang* mChoosenLang);
+	~AutoFillWrapper();
 };

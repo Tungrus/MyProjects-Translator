@@ -1,10 +1,16 @@
 #pragma once
-/*
-class language
+
+class Language
 {
 private:
-	int i;
+	std::string* mLangugae;
 public:
-	language(int i);
-	int getLanguege();
-};*/
+	Language();
+	Language(std::string* mLangugae);
+
+	std::string* getLanguege() const;
+
+	void copyString(std::string* str);
+
+	~Language();
+};

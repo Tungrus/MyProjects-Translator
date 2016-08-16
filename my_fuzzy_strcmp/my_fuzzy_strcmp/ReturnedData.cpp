@@ -7,11 +7,7 @@ ReturnedData::ReturnedData()
 {
 	this->mSavedData = NULL;
 }
-ReturnedData::~ReturnedData()
-{
-	this->mSavedData->clear();
-	this->mSavedData = NULL;
-}
+
 ReturnedData::ReturnedData(std::vector<std::string*>* mReturnedWords)
 {
 	setWords(mReturnedWords);
@@ -27,19 +23,23 @@ std::string* ReturnedData::getFirstWord()
 {
 	return this->mSavedData[0][0];
 }
+
 std::vector<std::string*>* ReturnedData::getWords()
 {
 	return this->mSavedData;
 }
+
 std::string* ReturnedData::getWordByNumber(int nomberOfWord)
 {
 	return this->mSavedData[0][nomberOfWord];
 }
+
 std::string ReturnedData::dropFitrsWord()
 {
-	std::string* str = this->mSavedData->operator[](0);
+	std::string* str = this->mSavedData[0][0];
+	std::string str1 = *str;
 	this->mSavedData->pop_back();
-	std::string  str1 = *str;
+	delete str;
 	return str1;
 }
 
@@ -47,12 +47,28 @@ void ReturnedData::setWords(std::vector<std::string*>* mTranslatedWords)
 {
 	this->mSavedData = mTranslatedWords;
 }
+
 void ReturnedData::setFirstWord(std::string* returnedWord)
 {
 	this->mSavedData = new std::vector<std::string*>;
 	mSavedData->push_back(returnedWord);
 }
+
 void ReturnedData::addWord(std::string* newWord)
 {
 	this->mSavedData->push_back(newWord);
+}
+
+ReturnedData::~ReturnedData()
+{
+	for (std::string* name : *this->mSavedData)
+	{
+		delete name;
+	}
+	delete this->mSavedData;
+}
+
+void ReturnedData::clearVector()
+{
+	this->mSavedData->clear();
 }

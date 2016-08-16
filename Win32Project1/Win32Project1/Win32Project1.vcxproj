@@ -84,18 +84,23 @@
     <ClCompile Include="AutoFillerThreadControler.cpp" />
     <ClCompile Include="AutoFillWrapper.cpp" />
     <ClCompile Include="Controler.cpp" />
-    <ClCompile Include="hwndSingletone.cpp" />
+    <ClCompile Include="FileOpenCollection.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="stringWrapper.cpp" />
+    <ClCompile Include="OpenFileName.cpp" />
     <ClCompile Include="View.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AutoFillerThreadControler.h" />
     <ClInclude Include="AutoFillWrapper.h" />
     <ClInclude Include="Controler.h" />
+    <ClInclude Include="FileOpenCollection.h" />
     <ClInclude Include="hwndSingletone.h" />
-    <ClInclude Include="stringWrapper.h" />
+    <ClInclude Include="OpenFilename.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="View.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Win32Project1.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

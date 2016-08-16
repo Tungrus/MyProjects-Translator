@@ -2,17 +2,21 @@
 #include "stdafx.h"
 #include<string>
 
-template<typename T> class stringWrapper
+template<typename T> class StringWrapper
 {
 private:
 	T mStringBeginIterator;
 	T mStringEndIterator;
 	T mStringStartIterator;
 public:
-	stringWrapper(T begin, T end);
+	StringWrapper();
+	StringWrapper(T begin, T end);
+
 	T getNext();
 	T getIt();
 	bool isNext();
 	void getFirst();
+
+	~StringWrapper();
 };
 

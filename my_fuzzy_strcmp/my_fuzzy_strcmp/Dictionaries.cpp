@@ -1,60 +1,146 @@
-
 #include "Reader.h"
-#include "SDictionary.h"
+#include "Dictionary.h"
 #include <vector>
+#include "Language.h"
+#include "Languages.h"
+#include "DictionaryPairLangugae.h"
+#include "FiledataValidator.h"
 #include "dictionaries.h"
 #include "parser.h"
 #include "stdafx.h"
 
+void ClearVector(std::vector<std::string*>* fileadata);
+
 Dictionaries::Dictionaries()
 {
 	this->mDictionaries = NULL;
+	this->mLanguages = NULL;
 }
 
-Dictionaries::Dictionaries(SDictionary* first, SDictionary* second)
+Dictionaries::Dictionaries(Dictionary* dictionary, DictionaryPairLang* language)
 {
-	this->mDictionaries = new std::vector<std::pair<SDictionary*, SDictionary*>*>;
-	mDictionaries->push_back(new std::pair<SDictionary*, SDictionary*>(first, second));
+	this->mDictionaries = new std::vector<Dictionary*>;
+	this->mLanguages = new Languages();
+	addDict(dictionary, language);
 }
 
-void Dictionaries::addPairDict(SDictionary* first, SDictionary* second)
+void Dictionaries::addDict(Dictionary* dictionary, DictionaryPairLang* language)
 {
-	mDictionaries->push_back(new std::pair<SDictionary*, SDictionary*>(first, second));
+	this->mDictionaries->push_back(dictionary);
+	this->mLanguages->addLanguageToCollection(language);
 }
 
-SDictionary* Dictionaries::getDictionary(std::string* newWord)
+Dictionary* Dictionaries::getDictionary(std::string* language) const
 {
-	return getDictionaryByLang(newWord);
+	DictionaryPairLang lng(language);
+	return getDictionaryByLang(&lng);
 }
 
-SDictionary* Dictionaries::getDictionaryByLang(std::string* newWord)
+Dictionary* Dictionaries::getDictionaryByLang(DictionaryPairLang* lng) const
 {
-	for (std::vector<std::pair<SDictionary*, SDictionary*>*>::iterator it = this->mDictionaries->begin(), endIT = this->mDictionaries->end(); it != endIT; it++)
+	return this->mDictionaries[0][this->mLanguages->getNomberInCollection(lng)];
+}
+
+bool Dictionaries::initFromFile(std::string* filename)
+{
+	IDictionaryParser* parser = new DictionaryParser;
+	IFileReader* reader = new FileReader;//FIX ME
+	IFiledataValidator* validator = new FiledataValidator;
+
+	std::vector<std::string*>* filedata = reader->Read(filename);
+	ReturnedData data(filedata);
+	bool is_Success = validator->is_valid(&data);
+	if (!is_Success)
 	{
-		std::pair<SDictionary*, SDictionary*>* s = *(it._Ptr);
-		s->first->init();
-		const std::string* d = &(s->first->getNext()->first);
-		if ('A' < d->c_str()[0] && d->c_str()[0] < 'z')
-		{
-			if ('A' < newWord->c_str()[0] && newWord->c_str()[0] < 'z')
-			{
-				return s->first;
-			}
-		}
-		else
-		{
-			return s->second;
-		}
+		delete parser;
+		delete reader;//FIX ME
+		delete validator;
+		return false;
 	}
-}
-
-void Dictionaries::initFromFile(std::string* filename)
-{
-	IParser* parser = new sDictionaryParser;
-	File_Reader reader;
-	std::vector<std::string*>* filedata = reader.Read(filename);
 	Dictionaries* dict = parser->pars((filedata));
 	this->mDictionaries = dict->mDictionaries;
-	//filedata->clear();
-	//delete filedata;
+	this->mLanguages = dict->mLanguages;
+
+	delete parser;
+	delete reader;//FIX ME
+	delete validator;
+	return true;
+}
+
+bool Dictionaries::addFromFile(std::string* filename)
+{
+	IDictionaryParser* parser = new DictionaryParser;
+	IFileReader* reader = new FileReader;//FIX ME
+	IFiledataValidator* validator = new FiledataValidator;
+
+	std::vector<std::string*>* filedata = reader->Read(filename);
+	ReturnedData data(filedata);
+	bool is_Success = validator->is_valid(&data);
+	if (!is_Success)
+	{
+		delete parser;
+		delete reader;//FIX ME
+		delete validator;
+		return false;
+	}
+	Dictionaries* dict = parser->pars((filedata));
+	InsertDict(dict);
+
+	delete parser;
+	delete reader;//FIX ME
+	delete validator;
+
+	return true;
+}
+
+Languages* Dictionaries::getLanguages() const
+{
+	return this->mLanguages;
+}
+
+/*
+void mergeVectors(std::vector<std::pair<SDictionary*, SDictionary*>*>* vectorToReturn, std::vector<std::pair<SDictionary*, SDictionary*>*>* vectorForAdd)
+{
+	for (std::pair<SDictionary*, SDictionary*>* element : *vectorForAdd)
+	{
+		vectorToReturn->push_back(element);
+	}
+}*/
+void Dictionaries::InsertDict(Dictionaries* dictionary)//фича с множественны добавлением
+{ 
+	int i = 0;
+	for (Dictionary* name : *dictionary->mDictionaries )
+	{
+		this->addDict(name, dictionary->mLanguages->getLanguegeByNomber(i));
+		i++;
+	}
+	dictionary->mDictionaries = NULL;
+	dictionary->mLanguages = NULL;
+	delete dictionary;
+}
+
+Dictionary* Dictionaries::getDictionary(DictionaryPairLang* pair) const
+{
+	int nomberInVector = this->mLanguages->getNomberInCollection(pair);
+	Dictionary* n = this->mDictionaries[0][nomberInVector];
+	return n;
+}
+
+void ClearVector(std::vector<std::string*>* fileadata)
+{
+	for (std::string* name : *fileadata)
+	{
+		delete name;
+	}
+	delete fileadata;
+}
+
+Dictionaries::~Dictionaries()
+{
+	for (Dictionary* dictionary : *this->mDictionaries)
+	{
+		delete dictionary;
+	}
+	delete this->mDictionaries;
+	delete this->mLanguages;
 }

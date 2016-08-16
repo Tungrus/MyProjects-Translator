@@ -10,18 +10,13 @@
 class ThreadControler
 {
 private:
-	
 	std::thread* mAutoFilingThread;
-	
-	ReturnedData* mThreadData;
+	bool work = true;
 protected:
 	IAutoFillWrapper* mFunk;
 public:
-	ThreadControler();//
 	~ThreadControler();
-	ThreadControler(IAutoFillWrapper* funk, ReturnedData* sendingData);
-	void Launch(HWND comboBoxWindow, Dictionaries* dictionaries);
-	void SetThread(IAutoFillWrapper* funk);
-	void setData(ReturnedData* mThreadData);
-
+	ThreadControler(IAutoFillWrapper* funk);
+	void Launch(HWND comboBoxWindow, Dictionaries* dictionaries, DictionaryPairLang* lang);
+	void setAutocomlitionData(ReturnedData* mThreadData, DictionaryPairLang* pair);
 };

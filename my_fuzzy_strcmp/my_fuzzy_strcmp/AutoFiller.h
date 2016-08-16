@@ -2,16 +2,17 @@
 
 
 
-class IFill
+class IAutoComplete
 {
 public:
-	virtual void autoFilling(ReturnedData* insertingWord, Dictionaries* dictionaries) = 0;
+	virtual void autoFilling(ReturnedData* insertingWord, Dictionaries* dictionaries, DictionaryPairLang* languge) = 0;
 };
 
 
-class AutoFill : public IFill
+class AutoFill : public IAutoComplete
 {
 public:
 	AutoFill();
-	void autoFilling(ReturnedData* insertingWord, Dictionaries* dictionaries);
+	void autoFilling(ReturnedData* insertingWord, Dictionaries* dictionaries, DictionaryPairLang* languge);
+	~AutoFill();
 };

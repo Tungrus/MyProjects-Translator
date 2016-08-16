@@ -7,17 +7,20 @@
 #include "stdafx.h"
 
 
-class FUZZY_API IReader
+class FUZZY_API IFileReader
 {
 public:
 	virtual std::vector<std::string*>* Read(std::string* filename) = NULL;
 	virtual std::ifstream& openStream(std::string* filename) = NULL;
 };
 
-class FUZZY_API File_Reader : public IReader
+class FUZZY_API FileReader : public IFileReader
 {
 public:
-	File_Reader();
+	FileReader();
+
 	std::vector<std::string*>* Read(std::string* filename);
 	std::ifstream& openStream(std::string* filename);
+
+	~FileReader();
 };

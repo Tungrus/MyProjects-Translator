@@ -2,9 +2,9 @@
 #include <string>
 #include <vector>
 #include "stringWrapper.h"
-#include "SDictionary.h"
+#include "Dictionary.h"
 
-#include "Word_Correcter.h"
+#include "WordCorrecter.h"
 
 #define	PRISE_OF_ADD 1
 #define PRISE_OF_DELETE 1
@@ -42,7 +42,7 @@ void Delete_Matrix(int y, int** matrix)
 	}
 }
 
-void bestPairCreater(int** matrix, stringWrapper<std::string::iterator>* newWrod, stringWrapper<std::string::iterator>* dictWord)
+void bestPairCreater(int** matrix, StringWrapper<std::string::iterator>* newWrod, StringWrapper<std::string::iterator>* dictWord)
 {
 	int y = 0;
 	while (dictWord->isNext())
@@ -52,7 +52,7 @@ void bestPairCreater(int** matrix, stringWrapper<std::string::iterator>* newWrod
 		while (newWrod->isNext())
 		{
 			x++;
-			if (*(dictWord->getIt()) != *(newWrod->getNext()._Ptr))
+			if (*(dictWord->getIt()) != *(newWrod->getNext()._Ptr))//FIX ME
 			{
 				if ((matrix[y - 1][x - 1]) < matrix[y][x - 1])
 				{
@@ -111,17 +111,17 @@ int MyABS(int len)
 		return len*(-1);
 }
 
-std::vector<std::string*>* Lewinshtain_Word_Correcter::CorrectWord(std::string* word, SDictionary* Dictionary,int possibleMistake)
+std::vector<std::string*>* LewinshtainWordCorrecter::CorrectWord(std::string* word, Dictionary* Dictionary,int possibleMistake)
 {
 	std::vector<std::string*>* matchedWords = new std::vector<std::string*>;
 	size_t currPrice;
 	std::string* checkWord = NULL;
 	Dictionary->init();
-	stringWrapper<std::string::iterator> newWrod(word->begin(),word->end());
+	StringWrapper<std::string::iterator> newWrod(word->begin(), word->end());
 	while (Dictionary->isNext())
 	{
 		checkWord = const_cast<std::string*>(&(Dictionary->getNext()->first));
-		stringWrapper<std::string::iterator> dictWord(checkWord->begin(), checkWord->end());
+		StringWrapper<std::string::iterator> dictWord(checkWord->begin(), checkWord->end());
 		int** matrix = Create_Table(checkWord, word);
 		Init_Matrix(checkWord->length(), word->length(), matrix);
 		bestPairCreater(matrix, &newWrod, &dictWord);
@@ -133,10 +133,17 @@ std::vector<std::string*>* Lewinshtain_Word_Correcter::CorrectWord(std::string* 
 		}
 		Delete_Matrix(checkWord->length(), matrix);
 	}
+
+
 	return matchedWords;
 }
 
-Lewinshtain_Word_Correcter::Lewinshtain_Word_Correcter()
+LewinshtainWordCorrecter::LewinshtainWordCorrecter()
+{
+
+}
+
+LewinshtainWordCorrecter::~LewinshtainWordCorrecter()
 {
 
 }

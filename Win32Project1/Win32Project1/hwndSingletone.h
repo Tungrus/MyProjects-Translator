@@ -1,13 +1,11 @@
 #pragma once
 
-#include <Windows.h>
 
 #define ID_BUTTON 64000
 #define ID_COMBOBOX 70000
-#define ID_EDIT 76000
 #define ID_RESULT 82000
 #define ID_TRANSLATEBUTTON 18000
-
+/*
 class HwndHolder
 {
 private:
@@ -45,4 +43,4 @@ public:
 	void setSuperString(std::vector<std::string*> * new_liens);
 	static SuperString* getInstance();
 	std::vector<std::string*> * getSuperString();
-};
+};*/

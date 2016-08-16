@@ -3,15 +3,16 @@
 #include<vector>
 #include"stdafx.h"
 
-class IParser
+class IDictionaryParser
 {
 public:
-	virtual Dictionaries* pars(std::vector<std::string*>* filedata) = NULL;
+	virtual Dictionaries* pars(std::vector<std::string*>* filedata) = 0;
 };
 
-class FUZZY_API sDictionaryParser : public IParser
+class FUZZY_API DictionaryParser : public IDictionaryParser
 {
 public:
-	sDictionaryParser();
+	DictionaryParser();
 	Dictionaries* pars(std::vector<std::string*>* filedata);
+	~DictionaryParser();
 };

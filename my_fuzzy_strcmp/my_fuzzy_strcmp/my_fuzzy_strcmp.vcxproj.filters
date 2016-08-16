@@ -15,28 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Lewinshtain_Word_Correcting.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Reader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SDictionary.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="stingWrapper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sDictionaryParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Dictionaries.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fasade.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="language.cpp">
@@ -57,17 +45,26 @@
     <ClCompile Include="AutoFiller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NumericTree.cpp">
+    <ClCompile Include="DictionaryPairLang.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dictionary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DictionaryParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LewinshtainWordCorrecting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FiledataValidator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WordsWithPriorityCollection.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="SDictionary.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Word_Correcter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Reader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -83,12 +80,6 @@
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Language.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Langruages.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Translator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -101,7 +92,28 @@
     <ClInclude Include="AutoFiller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NumericTree.h">
+    <ClInclude Include="Languages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Language.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DictionaryPairLangugae.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dictionary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IntrafaceControler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WordCorrecter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FiledataValidator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WordsWithPriorityCollection.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,18 +1,37 @@
 #pragma once
 
 #include "stdafx.h"
-#include "SDictionary.h"
-#include <vector>
+#include "Dictionary.h"
+#include "Language.h"
+#include "Languages.h"
+
+
+/*class IDictionaries
+{
+	virtual Dictionary* getDictionary(DictionaryPairLang* lang) = 0;
+
+};*/
+
 
 class FUZZY_API Dictionaries
 {
 private:
-	std::vector<std::pair<SDictionary*, SDictionary*>*>* mDictionaries;
-	SDictionary* getDictionaryByLang(std::string* newWord);
+	Languages* mLanguages;
+	std::vector<Dictionary*>* mDictionaries;//FIX ME
+	Dictionary* getDictionaryByLang(DictionaryPairLang* language) const;
 public:
 	Dictionaries();
-	Dictionaries(SDictionary* first, SDictionary* second);
-	SDictionary* getDictionary(std::string* newWord);
-	void addPairDict(SDictionary* first, SDictionary* second);
-	void initFromFile(std::string* filename);
+	Dictionaries(Dictionary* dictionary, DictionaryPairLang* language);
+
+	Dictionary* getDictionary(std::string* lang) const;
+	Dictionary* getDictionary(DictionaryPairLang* pair) const;
+
+	void addDict(Dictionary* first, DictionaryPairLang* language);
+	void InsertDict(Dictionaries* dictionary);
+
+	bool initFromFile(std::string* filename);
+	bool addFromFile(std::string* filename);
+	Languages* getLanguages() const;
+
+	~Dictionaries();
 };

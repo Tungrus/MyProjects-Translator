@@ -1,14 +1,13 @@
 #pragma once
 
 #include <vector>
-
-class ReturnedData
+//need TO Rename
+class ReturnedData//need template with const string/wstring
 {
 private:
-	std::vector<std::string*>* mSavedData;
+	std::vector<std::string*> *mSavedData;
 public:
 	ReturnedData();
-	~ReturnedData();
 	ReturnedData(std::string* mReturnedWord);
 	ReturnedData(std::vector<std::string*>* returnedData);
 
@@ -20,4 +19,8 @@ public:
 	void setWords(std::vector<std::string*>* returnedData);
 	void setFirstWord(std::string* returnedWord);
 	void addWord(std::string* newWord);
+
+	void clearVector();
+
+	~ReturnedData();
 };

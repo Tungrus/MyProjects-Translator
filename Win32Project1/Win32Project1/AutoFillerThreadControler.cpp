@@ -7,40 +7,27 @@
 #include "AutoFillWrapper.h"
 #include "AutoFillerThreadControler.h"
 
-ThreadControler::ThreadControler()
-{
-	this->mFunk = NULL;
-	this->mAutoFilingThread = NULL;
-	this->mThreadData = NULL;
-}
 
 ThreadControler::~ThreadControler()
 {
 	delete mFunk;
 	delete mAutoFilingThread;
-	delete mThreadData;
 }
 
-ThreadControler::ThreadControler(IAutoFillWrapper* funk, ReturnedData* data)
-{
-	this->mFunk = funk;
-	this->mThreadData = data;
-}
-
-void ThreadControler::SetThread(IAutoFillWrapper* funk)
+ThreadControler::ThreadControler(IAutoFillWrapper* funk)
 {
 	this->mFunk = funk;
 }
 
-void ThreadControler::setData(ReturnedData* data)
+void ThreadControler::setAutocomlitionData(ReturnedData* data,DictionaryPairLang* pair)
 {
-	this->mThreadData = data;
+	this->mFunk->setData(data,pair);
 }
 
-void ThreadControler::Launch(HWND ListBox, Dictionaries* dictionaries)
+void ThreadControler::Launch(HWND ListBox, Dictionaries* dictionaries, DictionaryPairLang* pair)
 {
-	auto a = [&, this](HWND _ListBox, Dictionaries* _dictionaries, ReturnedData* _data){this->mFunk->autoFillWrapper(_ListBox, _data, dictionaries); };
-	this->mAutoFilingThread = new std::thread(a, ListBox, dictionaries, this->mThreadData);
+	auto a = [&, this](HWND _ListBox, Dictionaries* _dictionaries, DictionaryPairLang* _pair){this->mFunk->autoFillWrapper(_ListBox, dictionaries,_pair); };
+	this->mAutoFilingThread = new std::thread(a, ListBox, dictionaries, pair);
 	
 	//mFunk->autoFillWrapper(ListBox, this->mThreadData, dictionaries);
 	this->mAutoFilingThread->detach();

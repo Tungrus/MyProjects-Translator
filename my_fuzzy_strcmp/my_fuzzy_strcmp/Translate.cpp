@@ -9,10 +9,12 @@ Translator::Translator()
 
 }
 
-
-std::string* Translator::Translate(std::string* string, Dictionaries* dictionaries)
+std::string* Translator::Translate(std::string* string, Dictionaries* dictionaries, DictionaryPairLang* pair)
 {
-	return dictionaries->getDictionary(string)->getValue(string);
+	return dictionaries->getDictionary(pair)->getValue(string);
 }
 
+Translator::~Translator()
+{
 
+}

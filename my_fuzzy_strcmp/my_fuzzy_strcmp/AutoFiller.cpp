@@ -4,7 +4,6 @@
 #include "dictionaries.h"
 #include "AutoFiller.h"
 
-
 AutoFill::AutoFill()
 {
 
@@ -13,22 +12,25 @@ AutoFill::AutoFill()
 bool partialMatch(std::string* reservedWord, const std::string* testingWord)
 {
 	std::string::const_iterator it2 = testingWord->begin(), endIt2 = testingWord->end();
-	
+	if (reservedWord->length() > testingWord->length())
+	{
+		return false;
+	}
 	for (std::string::iterator it1 = reservedWord->begin(), endIt1 = reservedWord->end(); it1 != endIt1; it1++ ,it2++)
 	{
-		if (it1._Ptr != it2._Ptr)
+		if (*(it1._Ptr) != *(it2._Ptr))
 		{
 			return false;
-			break;
 		}
 	}
 	return true;
 }
 
-void AutoFill::autoFilling(ReturnedData* insertingWord, Dictionaries* dictionaries)
+void AutoFill::autoFilling(ReturnedData* insertingWord, Dictionaries* dictionaries, DictionaryPairLang* languge)
 {
 	std::string resevedWord = insertingWord->dropFitrsWord();
-	SDictionary* dictionary = dictionaries->getDictionary(&resevedWord);
+	
+	Dictionary* dictionary = dictionaries->getDictionary(languge);
 	dictionary->init();
 	
 	while (dictionary->isNext())
@@ -39,4 +41,9 @@ void AutoFill::autoFilling(ReturnedData* insertingWord, Dictionaries* dictionari
 			insertingWord->addWord(const_cast<std::string*>(testingWord));
 		}
 	}
+}
+
+AutoFill::~AutoFill()
+{
+
 }

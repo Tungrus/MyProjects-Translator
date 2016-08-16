@@ -1,7 +1,7 @@
 #include "Reader.h"
 #include "stdafx.h"
 
-std::vector<std::string*>* File_Reader::Read(std::string* filename)
+std::vector<std::string*>* FileReader::Read(std::string* filename)
 {
 	std::ifstream str;
 	str.open(*filename);
@@ -27,7 +27,7 @@ std::vector<std::string*>* File_Reader::Read(std::string* filename)
 	return filedata;
 }
 
-std::ifstream& File_Reader::openStream(std::string* filename)
+std::ifstream& FileReader::openStream(std::string* filename)
 {
 	std::ifstream str;
 	str.open(*filename);
@@ -39,6 +39,12 @@ std::ifstream& File_Reader::openStream(std::string* filename)
 	return str;
 }
 
-File_Reader::File_Reader()
+FileReader::FileReader()
 {
+
+}
+
+FileReader::~FileReader()
+{
+
 }

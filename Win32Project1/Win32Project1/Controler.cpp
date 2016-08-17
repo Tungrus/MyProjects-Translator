@@ -6,6 +6,7 @@
 #include <Translator.h>
 #include <dictionaries.h>
 #include <returnedData.h>
+#include <vld.h>
 #include "AutoFillWrapper.h"
 #include "AutoFillerThreadControler.h"
 
@@ -17,7 +18,7 @@ void sendLangsToDropDown(HWND DropDown, Languages* lang)
 {
 	for (DictionaryPairLang* pair : *lang->getAllLanguages())
 	{
-		SendMessage(DropDown, CB_ADDSTRING, 0, (LPARAM)(pair->getFullTranslationName().c_str()));// +pair->getToLang()->getLanguege()->c_str()));//
+		SendMessage(DropDown, CB_ADDSTRING, 0, (LPARAM)(pair->getFullTranslationName().c_str()));
 	}	
 }
 
@@ -26,7 +27,7 @@ void eraseTextFromComboBox(HWND comboBox)
 	int count = SendMessage(comboBox, CB_GETCOUNT, 0, 0);
 	for (int i = 0; i != count; i++)
 	{
-		SendMessage(comboBox, LB_DELETESTRING, 0, 0);
+		SendMessage(comboBox, CB_DELETESTRING, 0, 0);
 	}
 }
 
@@ -41,12 +42,13 @@ void eraseTextFromListBox(HWND listBox)
 
 ReturnedData* getTextFromEdit(HWND edit)
 {
-	LPSTR str = new char[GetWindowTextLength(edit) + 1];
+
+	char* n= new char[GetWindowTextLength(edit) + 1];
 	std::string* st1 = NULL;
 	ReturnedData* data = NULL;
-	if (GetWindowText(edit, str, GetWindowTextLength(edit) + 1))
+	if (GetWindowText(edit, n, GetWindowTextLength(edit) + 1))
 	{
-		st1 = new std::string(str);
+		st1 = new std::string(n);
 		data = new ReturnedData(st1);
 	}
 	/*std::string* st2 = new std::string;
@@ -54,7 +56,7 @@ ReturnedData* getTextFromEdit(HWND edit)
 	data->dropFitrsWord();
 	data->addWord(st2);
 	delete data;*/
-
+	delete (n);
 	return data;
 }
 
@@ -68,6 +70,7 @@ void sendDataToListBox(HWND hListBox, ReturnedData* stringToSend)
 
 Controler::Controler(HINSTANCE hInstance, int nCmdShow)
 {
+	this->mDictionaries = NULL;
 	this->mChoosenLang = NULL;
 	this->mThread = NULL;
 	this->mDataInListBox = NULL;
@@ -79,9 +82,12 @@ Controler::~Controler()
 {
 	delete this->mView;
 	this->mView = NULL;
-	delete this->mDictionaries;
-	this->mChoosenLang = NULL;
-	this->mDictionaries = NULL;
+	if (this->mDictionaries != NULL)
+	{
+		delete this->mDictionaries;
+		this->mDictionaries = NULL;
+		this->mChoosenLang = NULL;
+	}
 	if (mDataInListBox != NULL)
 	{
 		this->mDataInListBox->clearVector();
@@ -92,23 +98,25 @@ Controler::~Controler()
 }
 
 void Controler::onCharInputAtction()
-{
+{	
+	SendMessage(this->mView->getEditReaderWindow(), CB_SHOWDROPDOWN, TRUE, 0);
+	eraseTextFromComboBox(this->mView->getEditReaderWindow());
 	if (this->mChoosenLang == NULL)
 	{
 		return;
 	}
-	this->mDataInListBox = getTextFromEdit(this->mView->getEditReaderWindow());
-	if (mDataInListBox == NULL)
+	ReturnedData* dataFromEdit = getTextFromEdit(this->mView->getEditReaderWindow());
+	if (dataFromEdit == NULL)
 	{
 		return;
 	}
-	eraseTextFromComboBox(this->mView->getEditReaderWindow());
+	
 	if (this->mThread == NULL)
 	{
 		this->mThread = new ThreadControler(new AutoFillWrapper());
 		this->mThread->Launch(this->mView->getEditReaderWindow(), this->mDictionaries,this->mChoosenLang);
 	}
-	this->mThread->setAutocomlitionData(this->mDataInListBox, this->mChoosenLang);
+	this->mThread->setAutocomlitionData(dataFromEdit, this->mChoosenLang);
 }
 
 void Controler::onSeachAction()
@@ -123,9 +131,16 @@ void Controler::onSeachAction()
 	{
 		return;
 	}
+	if (this->mDataInListBox != NULL)
+	{
+		this->mDataInListBox->clearVector();
+		delete mDataInListBox;
+	}
 	ISeacher* seacher = new Seacher();
+	
 	this->mDataInListBox = seacher->SeachForMatchesInDictionary(resevedString->getFirstWord(), this->mDictionaries->getDictionary(this->mChoosenLang), 2);
 	sendDataToListBox(this->mView->getListWindow(), mDataInListBox);
+	delete seacher;
 	delete resevedString;
 }
 
@@ -200,6 +215,7 @@ void Controler::onGetingNewDictionaryAction()
 		{
 			//void callErrorWindow();
 		}
+		delete filepath;
 	}
 }
 

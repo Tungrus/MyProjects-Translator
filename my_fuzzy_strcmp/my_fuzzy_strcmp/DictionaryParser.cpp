@@ -5,26 +5,14 @@
 #include "Dictionary.h"
 #include "stringWrapper.h"
 #include "Parser.h"
+#include <vld.h>
 #include "stdafx.h"
-
-void InsertDataInMap(std::map<std::string, std::string>* map,std::string* dataToInsert,std::string* key)
-{
-	if (map->operator[](*key) == "")
-	{
-		map->operator[](*key) = *dataToInsert;
-	}
-	else
-	{
-		map->operator[](*key) += ", " + *dataToInsert;
-	}
-}
-
 
 
 Dictionaries* DictionaryParser::pars(std::vector<std::string*>* filedata)
 {
-	std::map<std::string, std::string>* newMap1 = new std::map<std::string, std::string>;
-	std::map<std::string, std::string>* newMap2 = new std::map<std::string, std::string>;
+	Dictionary* dictionary_1 = new Dictionary;
+	Dictionary* dictionary_2 = new Dictionary;
 	std::string* helperWord;
 	DictionaryPairLang* lang = new DictionaryPairLang(filedata[0][0]);
 	for (std::vector<std::string*>::iterator it = filedata->begin() + 1, endIt = filedata->end(); it != endIt; it++)
@@ -36,16 +24,14 @@ Dictionaries* DictionaryParser::pars(std::vector<std::string*>* filedata)
 		str1 = helperWord->substr(helperWord->find('>') + 1, helperWord->length() - 1);
 		if (str.length() != 0 && str1.length() != 0)
 		{
-			InsertDataInMap(newMap1, &str1, &str);
-			InsertDataInMap(newMap2, &str, &str1);
+			dictionary_1->InsertData(str1, str);
+			dictionary_2->InsertData(str, str1);
 		}
 	}
-	Dictionary* dict1 = new Dictionary(newMap1);
-	Dictionary* dict2 = new Dictionary(newMap2);
-
-	Dictionaries* dict = new Dictionaries(dict1, lang);
+	Dictionaries* dict = new Dictionaries(dictionary_1, lang);
 	bool needToReverce = true;
-	dict->addDict(dict2, new DictionaryPairLang(lang, needToReverce));
+	auto sss = new DictionaryPairLang(lang, needToReverce);
+	dict->addDict(dictionary_2, sss);
 	return dict;
 }
 

@@ -1,7 +1,7 @@
 #pragma once 
 #include <string>
 #include "Language.h"
-
+#include <vld.h>
 class DictionaryPairLang
 {
 private:

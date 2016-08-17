@@ -2,7 +2,7 @@
 #include"dictionaries.h"
 #include<vector>
 #include"stdafx.h"
-
+#include <vld.h>
 class IDictionaryParser
 {
 public:

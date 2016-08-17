@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <vld.h>
 #include "returnedData.h"
 
 class IFiledataValidator

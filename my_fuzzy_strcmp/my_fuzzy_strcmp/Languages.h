@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vld.h>
 #include "DictionaryPairLangugae.h"
 #include <vector>
 
@@ -17,5 +17,7 @@ public:
 	std::vector<DictionaryPairLang*>* getAllLanguages() const;
 	int getNomberInCollection(DictionaryPairLang* pairLang) const;
 	
+	void ClearData();
+
 	~Languages();
 };

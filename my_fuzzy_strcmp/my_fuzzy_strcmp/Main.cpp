@@ -1,5 +1,6 @@
 #include "Reader.h"
 #include <Windows.h>
+#include <vld.h>
 #include "stdafx.h"
 
 

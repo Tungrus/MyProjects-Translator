@@ -5,6 +5,7 @@
 #include "AutoFillerThreadControler.h"
 #include "OpenFilename.h"
 #include "FileOpenCollection.h"
+#include <vld.h>
 
 class Controler : private IActionCallback
 {
@@ -14,6 +15,7 @@ private:
 	Dictionaries* mDictionaries;
 	ReturnedData* mDataInListBox;
 	DictionaryPairLang* mChoosenLang;
+	//ReturnedData* mDataInCombobox;
 	//OpenFileNamesCollection* mFiles;
 
 public:

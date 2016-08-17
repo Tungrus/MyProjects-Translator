@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <utility>
 #include <vector>
+#include <vld.h>
 #include "WordsWithPriorityCollection.h"
 
 

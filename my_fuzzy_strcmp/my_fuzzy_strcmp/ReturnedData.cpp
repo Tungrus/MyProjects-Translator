@@ -1,4 +1,4 @@
-
+#include <vld.h>
 #include <vector>
 #include "returnedData.h"
 #include "stdafx.h"
@@ -34,12 +34,13 @@ std::string* ReturnedData::getWordByNumber(int nomberOfWord)
 	return this->mSavedData[0][nomberOfWord];
 }
 
-std::string ReturnedData::dropFitrsWord()
+std::string ReturnedData::dropFitrsWordAndDestroyData()
 {
 	std::string* str = this->mSavedData[0][0];
 	std::string str1 = *str;
 	this->mSavedData->pop_back();
 	delete str;
+	delete this->mSavedData;
 	return str1;
 }
 
@@ -61,11 +62,14 @@ void ReturnedData::addWord(std::string* newWord)
 
 ReturnedData::~ReturnedData()
 {
-	for (std::string* name : *this->mSavedData)
+	if (this->mSavedData != NULL)
 	{
-		delete name;
+		for (std::string* name : *this->mSavedData)
+		{
+			delete name;
+		}
+		delete this->mSavedData;
 	}
-	delete this->mSavedData;
 }
 
 void ReturnedData::clearVector()

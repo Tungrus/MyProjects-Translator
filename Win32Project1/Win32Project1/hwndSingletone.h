@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vld.h>
 
 #define ID_BUTTON 64000
 #define ID_COMBOBOX 70000

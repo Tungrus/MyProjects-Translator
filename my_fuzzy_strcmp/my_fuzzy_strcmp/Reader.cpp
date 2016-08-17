@@ -1,3 +1,4 @@
+#include <vld.h>
 #include "Reader.h"
 #include "stdafx.h"
 

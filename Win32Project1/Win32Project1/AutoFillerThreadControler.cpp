@@ -1,6 +1,6 @@
 #include <thread>
 #include <returnedData.h>
-
+#include <vld.h>
 #include <Windows.h>
 #include <dictionaries.h>
 #include <AutoFiller.h>

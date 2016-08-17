@@ -8,6 +8,7 @@
 #include "Controler.h"
 #include "hwndSingletone.h"
 #include <WordCorrecter.h>
+#include <vld.h>
 
 
 

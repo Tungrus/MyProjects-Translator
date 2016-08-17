@@ -1,6 +1,6 @@
 #include <string>
 
-
+#include <vld.h>
 #include "Language.h"
 
 Language::Language()

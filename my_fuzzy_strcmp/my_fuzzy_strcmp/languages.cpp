@@ -1,5 +1,5 @@
 #include <vector>
-
+#include <vld.h>
 #include "DictionaryPairLangugae.h"
 #include "Languages.h"
 
@@ -10,7 +10,7 @@ Languages::Languages()
 
 void Languages::addLanguageToCollection(DictionaryPairLang* language)
 {
-	mLanguages->push_back(new DictionaryPairLang(language));
+	mLanguages->push_back(language);
 }
 
 DictionaryPairLang* Languages::getLanguegeByNomber(int nomber) const
@@ -37,11 +37,17 @@ int Languages::getNomberInCollection(DictionaryPairLang* language) const
 	return -1;
 }
 
+void Languages::ClearData()
+{
+	this->mLanguages->clear();
+}
+
 Languages::~Languages()
 {
 	for (DictionaryPairLang* langInVector : *this->mLanguages)
 	{
 		delete langInVector;
+		langInVector = NULL;
 	}
 	delete mLanguages;
 }

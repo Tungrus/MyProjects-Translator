@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vld.h>
 class Language
 {
 private:

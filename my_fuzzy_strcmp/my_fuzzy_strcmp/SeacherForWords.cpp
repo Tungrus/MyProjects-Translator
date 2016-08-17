@@ -1,5 +1,6 @@
 #include "dictionaries.h"
 #include "returnedData.h"
+#include <vld.h>
 #include "WordCorrecter.h"
 #include "stdafx.h"
 

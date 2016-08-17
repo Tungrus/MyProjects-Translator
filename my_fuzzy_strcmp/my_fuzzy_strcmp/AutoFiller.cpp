@@ -1,4 +1,4 @@
-
+#include <vld.h>
 #include <string>
 #include "returnedData.h"
 #include "dictionaries.h"
@@ -29,7 +29,7 @@ bool partialMatch(std::string* reservedWord, const std::string* testingWord)
 
 void AutoFill::autoFilling(ReturnedData* insertingWord, Dictionaries* dictionaries, DictionaryPairLang* languge)
 {
-	std::string resevedWord = insertingWord->dropFitrsWord();
+	std::string resevedWord = insertingWord->dropFitrsWordAndDestroyData();
 	WordsWithPriority foundWords;
 
 	Dictionary* dictionary = dictionaries->getDictionary(languge);

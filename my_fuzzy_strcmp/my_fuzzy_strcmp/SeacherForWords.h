@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vld.h>
 #include "returnedData.h"
 #include "dictionaries.h"
 class ISeacher

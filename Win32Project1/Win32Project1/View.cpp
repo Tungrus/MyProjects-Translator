@@ -2,6 +2,7 @@
 #include <functional>
 #include <Windows.h>
 #include "resource.h"
+#include <vld.h>
 #include "View.h"
 
 

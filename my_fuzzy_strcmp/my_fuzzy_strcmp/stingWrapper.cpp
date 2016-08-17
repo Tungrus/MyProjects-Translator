@@ -1,5 +1,6 @@
 #include <string>
 //#include<wstring>
+#include <vld.h>
 #include"stringWrapper.h"
 
 StringWrapper<std::string::iterator>::StringWrapper(std::string::iterator begin, std::string::iterator end)

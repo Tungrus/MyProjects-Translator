@@ -1,7 +1,7 @@
 #pragma once
 #include <map>
 #include "stdafx.h"
-
+#include <vld.h>
 class FUZZY_API Dictionary
 {
 private:
@@ -10,6 +10,8 @@ private:
 public:
 	Dictionary();
 	Dictionary(std::map<std::string, std::string>* std);
+
+	void InsertData(std::string& key, std::string& value);
 
 	void init();//
 	bool isNext();//

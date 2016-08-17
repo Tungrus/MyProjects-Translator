@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vld.h>
 #include "stdafx.h"
 #include "Dictionary.h"
 #include "Language.h"
@@ -19,6 +19,7 @@ private:
 	Languages* mLanguages;
 	std::vector<Dictionary*>* mDictionaries;//FIX ME
 	Dictionary* getDictionaryByLang(DictionaryPairLang* language) const;
+	void ClearData();
 public:
 	Dictionaries();
 	Dictionaries(Dictionary* dictionary, DictionaryPairLang* language);

@@ -1,6 +1,6 @@
 
 
-
+#include <vld.h>
 #include "dictionaries.h"
 #include "Translator.h"
 

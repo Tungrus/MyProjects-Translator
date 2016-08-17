@@ -6,6 +6,7 @@
 #include "AutoFillWrapper.h"
 #include <Windows.h>
 #include <dictionaries.h>
+#include <vld.h>
 
 class ThreadControler
 {

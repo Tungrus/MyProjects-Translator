@@ -7,6 +7,7 @@
 #include "FiledataValidator.h"
 #include "dictionaries.h"
 #include "parser.h"
+#include <vld.h>
 #include "stdafx.h"
 
 void ClearVector(std::vector<std::string*>* fileadata);
@@ -64,6 +65,9 @@ bool Dictionaries::initFromFile(std::string* filename)
 	delete parser;
 	delete reader;//FIX ME
 	delete validator;
+
+	dict->ClearData();
+	delete dict;
 	return true;
 }
 
@@ -106,16 +110,20 @@ void mergeVectors(std::vector<std::pair<SDictionary*, SDictionary*>*>* vectorToR
 		vectorToReturn->push_back(element);
 	}
 }*/
-void Dictionaries::InsertDict(Dictionaries* dictionary)//фича с множественны добавлением
+void Dictionaries::InsertDict(Dictionaries* dictionary)
 { 
 	int i = 0;
-	for (Dictionary* name : *dictionary->mDictionaries )
+	for (Dictionary* name : *dictionary->mDictionaries)
 	{
 		this->addDict(name, dictionary->mLanguages->getLanguegeByNomber(i));
 		i++;
 	}
-	dictionary->mDictionaries = NULL;
-	dictionary->mLanguages = NULL;
+	
+	dictionary->mLanguages->ClearData();
+	dictionary->mDictionaries->clear();
+	delete dictionary->mLanguages;
+	delete dictionary->mDictionaries;
+	dictionary->ClearData();
 	delete dictionary;
 }
 
@@ -137,10 +145,23 @@ void ClearVector(std::vector<std::string*>* fileadata)
 
 Dictionaries::~Dictionaries()
 {
-	for (Dictionary* dictionary : *this->mDictionaries)
+	if (this->mDictionaries != NULL)
 	{
-		delete dictionary;
+		for (Dictionary* dictionary : *this->mDictionaries)
+		{
+			delete dictionary;
+		}
+		delete this->mDictionaries;
+		this->mDictionaries = NULL;
 	}
-	delete this->mDictionaries;
-	delete this->mLanguages;
+	if (this->mLanguages != NULL)
+	{
+		delete this->mLanguages;
+	}
+}
+
+void Dictionaries::ClearData()
+{
+	this->mDictionaries = NULL;
+	this->mLanguages = NULL;
 }

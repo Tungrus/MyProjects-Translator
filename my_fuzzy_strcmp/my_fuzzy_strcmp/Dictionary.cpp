@@ -1,6 +1,7 @@
 #include <vector>
 #include <map>
 #include "Dictionary.h"
+#include <vld.h>
 #include "stdafx.h"
 
 void Dictionary::addString(std::pair<std::string, std::string>* pair_word)
@@ -52,4 +53,16 @@ std::string* Dictionary::getValue(std::string* newWord)
 Dictionary::~Dictionary()
 {
 	delete this->mDictionary;
+}
+
+void Dictionary::InsertData(std::string& dataToInsert, std::string& key)
+{
+	if (this->mDictionary->operator[](key) == "")
+	{
+		this->mDictionary->operator[](key) = dataToInsert;
+	}
+	else
+	{
+		this->mDictionary->operator[](key) += ", " + dataToInsert;
+	}
 }

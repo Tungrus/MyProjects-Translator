@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vld.h>
 #include "stdafx.h"
 #include <vector>
 #include "Dictionary.h"

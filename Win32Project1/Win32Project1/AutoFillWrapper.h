@@ -4,6 +4,7 @@
 #include <Windows.h>
 #include <condition_variable>
 #include <returnedData.h>
+#include <vld.h>
 
 class IAutoFillWrapper
 {
@@ -15,6 +16,7 @@ public:
 class AutoFillWrapper : public IAutoFillWrapper
 {
 	bool isStopRequsted() const;
+	std::atomic<bool> mNeedToProcess;
 	std::atomic<bool> mIsStoped;
 	std::atomic<bool> mAutocompleteInUse;
 	ReturnedData* mData;

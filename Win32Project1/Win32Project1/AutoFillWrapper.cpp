@@ -1,7 +1,7 @@
 #include <string>
 #include <Windows.h>
 #include <returnedData.h>
-
+#include <vld.h>
 #include <dictionaries.h>
 #include <Windows.h>
 #include <condition_variable>
@@ -18,6 +18,7 @@ void AutoFillWrapper::SendDataToWindow(HWND window)
 
 AutoFillWrapper::AutoFillWrapper()
 {
+	mNeedToProcess.store(false);
 	mIsStoped.store(false);
 	this->mAutocompleteInUse.store(false);
 }
@@ -27,6 +28,7 @@ void AutoFillWrapper::setData(ReturnedData* data, DictionaryPairLang* mChoosenLa
 	if (mAutocompleteInUse.load() == true)
 		return;
 
+	this->mNeedToProcess = false;
 	this->mData = data;
 	this->mChoosenLang = mChoosenLang;
 	this->mCondSetData.notify_all();
@@ -42,7 +44,7 @@ void AutoFillWrapper::autoFillWrapper(HWND lisBox, Dictionaries* dictionaries, D
 			return;
 
 		mAutocompleteInUse.store(true);
-		IAutoFillWrapper* filer = new AutoFillWrapper();
+		//IAutoFillWrapper* filer = new AutoFillWrapper();
 		AutoFill autofil;
 		autofil.autoFilling(this->mData, dictionaries, pair);
 		if (mData->getWords()->size() != 0)

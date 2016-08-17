@@ -1,5 +1,6 @@
 #include <string>
 #include "Language.h"
+#include <vld.h>
 #include "DictionaryPairLangugae.h"
 
 DictionaryPairLang::DictionaryPairLang(Language* fromLang, Language* toLang)

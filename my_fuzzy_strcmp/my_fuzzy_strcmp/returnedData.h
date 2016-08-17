@@ -1,5 +1,5 @@
 #pragma once
-
+#include <vld.h>
 #include <vector>
 //need TO Rename
 class ReturnedData//need template with const string/wstring
@@ -14,7 +14,7 @@ public:
 	std::string* getFirstWord();
 	std::vector<std::string*>* getWords();
 	std::string* getWordByNumber(int nomber);
-	std::string dropFitrsWord();
+	std::string dropFitrsWordAndDestroyData();
 
 	void setWords(std::vector<std::string*>* returnedData);
 	void setFirstWord(std::string* returnedWord);
